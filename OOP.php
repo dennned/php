@@ -157,7 +157,7 @@ interface UserInterface {
 class Admin implements UserInterface {
     public function getName($name, $role)
     {
-        echo "This is : ".$role." Your name is ".$name;
+        //echo "This is : ".$role." Your name is ".$name;
     }
 }
 
@@ -252,5 +252,87 @@ class myClassOne  {
 }
 
 $o = new myClassOne;
-echo $o->sayHello();
-echo $o->sayWorld();
+//echo $o->sayHello();
+//echo $o->sayWorld();
+
+
+
+//// Clone
+class Clonun {
+    public $id;
+    public $name;
+
+    public function __construct($name)
+    {
+        $this->name = $name;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    public function __clone()
+    {
+        $this->id = 1;
+    }
+}
+
+$newCl = new Clonun('Ivan');
+$newCl->setId(5555);
+
+$cloned = clone $newCl;
+
+
+///// __get __set
+class getSet {
+    private $number = 1;
+
+    public function __get($name)
+    {
+        echo "You get value : ".$name;
+    }
+
+    public function __set($name, $value)
+    {
+        echo "You set : ".$name." to value ".$value;
+    }
+}
+
+$new = new getSet();
+//var_dump($new->number);
+//var_dump($new->number = 5555);
+
+
+class Func {
+    public function setId(int $id): int
+    {
+        return $this->id = $id;
+    }
+}
+
+$f = new Func();
+//var_dump($f->setId('test')); // Fatal error: Uncaught TypeError: Argument 1 passed to Func::setId()
+
+
+// Exeptions
+$file = "one.php";
+try {
+    if(!file_exists($file)) {
+//        throw  new Exception("This file is not exist");
+    }
+} catch (Exception $exception) {
+    echo $exception->getMessage();
+}
+
+$x = 1;
+do {
+    echo $x;
+    $x ++;
+} while($x < 5);
+
+$y = 1;
+while($y < 5) {
+    echo $y;
+    $y ++;
+}
